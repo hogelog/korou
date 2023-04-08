@@ -54,12 +54,11 @@ def ask(query, vs):
 
     # show question and answer
     content = response['choices'][0]['message']['content']
-    print(f">>>> {query}")
-    print(">", content, ">\n")
+    print("\n", content, "\n")
 
     for number, (title, updated_at) in metadata.items():
         url = f"https://{ESA_TEAM}.esa.io/posts/{number}"
-        print(f"> [{title} {updated_at.strftime('%Y-%m-%d')}]({url})")
+        print(f"- [{title} {updated_at.strftime('%Y-%m-%d')}]({url})")
 
 
 if __name__ == "__main__":
