@@ -1,7 +1,9 @@
 import readline
 
 from ask import ask
+from make_index import VectorStore
 
+vs = VectorStore("esa.pickle")
 
 while True:
     try:
@@ -13,4 +15,4 @@ while True:
         continue
     if not input_str:
         continue
-    ask(input_str, "esa.pickle")
+    ask(input_str, vs)

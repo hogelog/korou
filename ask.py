@@ -19,7 +19,7 @@ MAX_PROMPT_SIZE = 4096
 RETURN_SIZE = 250
 
 
-def ask(query, index_file):
+def ask(query, vs):
     PROMPT_SIZE = get_size(PROMPT)
     rest = MAX_PROMPT_SIZE - RETURN_SIZE - PROMPT_SIZE
     input_size = get_size(query)
@@ -27,7 +27,6 @@ def ask(query, index_file):
         raise RuntimeError("too large input!")
     rest -= input_size
 
-    vs = VectorStore(index_file)
     samples = vs.get_sorted(query)
 
     to_use = []
@@ -56,7 +55,7 @@ def ask(query, index_file):
     # show question and answer
     content = response['choices'][0]['message']['content']
     print(f">>>> {query}")
-    print(">", content, "\n")
+    print(">", content, ">\n")
 
     for number, (title, updated_at) in metadata.items():
         url = f"https://{ESA_TEAM}.esa.io/posts/{number}"
@@ -64,4 +63,5 @@ def ask(query, index_file):
 
 
 if __name__ == "__main__":
-    ask("AIサービスにはどこまでの情報を入れてよいですか", "esa.pickle")
+    vs = VectorStore("esa.pickle")
+    ask("AIサービスにはどこまでの情報を入れてよいですか", vs)
