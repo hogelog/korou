@@ -24,5 +24,5 @@ urllib3==1.26.14
 yarl==1.8.2
 
 ipython==8.11.0
-PyYAML==6.0
+PyYAML==5.4.1
 slack_bolt==1.17.0
