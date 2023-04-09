@@ -94,6 +94,9 @@ class VectorStore:
     def add_record(self, number, title, body, updated_at):
         if number not in self.cache:
             self.cache[number] = []
+        for _, _, cached_body, _ in self.cache[number]:
+            if body == cached_body:
+                return
         self.cache[number].append((embed_text(body), title, body, updated_at))
 
     def get_sorted(self, query):
