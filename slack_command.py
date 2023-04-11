@@ -24,10 +24,11 @@ vs = VectorStore("esa.pickle")
 
 app = App(token=SLACK_BOT_TOKEN, signing_secret=SLACK_SIGNING_SECRET)
 
-@app.command("/korou")
-def command(ack, say, command):
-    ack("", response_type="in_channel")
-    threading.Thread(target=response, args=(say, command["text"])).start()
+@app.event("app_mention")
+def command(body, say):
+    text = body["event"]["text"]
+    query = text.replace("@korou ", "").strip()
+    threading.Thread(target=response, args=(say, query)).start()
 
 def response(say, query):
     content, links = ask_raw(query, vs, PROMPT)
